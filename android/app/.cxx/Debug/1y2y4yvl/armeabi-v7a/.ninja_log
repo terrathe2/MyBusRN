@@ -1,0 +1,5 @@
+# ninja log v5
+7	68	0	C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/cmake.verify_globs	cd638cba1c649441
+11	3916	7736668166737736	CMakeFiles/appmodules.dir/C_/Users/Phincon/Codes/MyBusRN/android/app/build/generated/autolinking/src/main/jni/autolinking.cpp.o	18b5691d062421cd
+1	4517	7736668172867731	CMakeFiles/appmodules.dir/OnLoad.cpp.o	2fd45e0ad57ae850
+4518	4655	7736668174357742	C:/Users/Phincon/Codes/MyBusRN/android/app/build/intermediates/cxx/Debug/1y2y4yvl/obj/armeabi-v7a/libappmodules.so	70b349eaf05075f6

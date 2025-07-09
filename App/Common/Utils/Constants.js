@@ -1,0 +1,8 @@
+export const BUS_STATUS_TRANSIT = "On The Way"
+export const BUS_STATUS_STOPPED = "Transit"
+export const BUS_STATUS_INCOMING = "Incoming"
+export const BUS_STATUS_BREAK = "On Break"
+export const BUS_STATUS_TRANSIT_BG = "#EFB700"
+export const BUS_STATUS_STOPPED_BG = "#008450"
+export const BUS_STATUS_INCOMING_BG = "#9ACD32"
+export const BUS_STATUS_BREAK_BG = "#B81D13"

@@ -1,11 +1,16 @@
 # ninja log v5
-7	68	0	C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/cmake.verify_globs	cd638cba1c649441
-11	3916	7736668166737736	CMakeFiles/appmodules.dir/C_/Users/Phincon/Codes/MyBusRN/android/app/build/generated/autolinking/src/main/jni/autolinking.cpp.o	18b5691d062421cd
-1	4517	7736668172867731	CMakeFiles/appmodules.dir/OnLoad.cpp.o	2fd45e0ad57ae850
-4518	4655	7736668174357742	C:/Users/Phincon/Codes/MyBusRN/android/app/build/intermediates/cxx/Debug/1y2y4yvl/obj/armeabi-v7a/libappmodules.so	70b349eaf05075f6
-3	36	0	C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/cmake.verify_globs	cd638cba1c649441
-2	22	0	C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/cmake.verify_globs	cd638cba1c649441
-3	59	0	C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/cmake.verify_globs	cd638cba1c649441
-4	33	0	C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/cmake.verify_globs	cd638cba1c649441
-4	22	0	C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/cmake.verify_globs	cd638cba1c649441
-2	25	0	C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/cmake.verify_globs	cd638cba1c649441
+47	5951	7737740716042839	RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/ShadowNodes.cpp.o	f810b1e15b4e64b
+1	50	0	C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/cmake.verify_globs	cd638cba1c649441
+54	6336	7737740719815997	CMakeFiles/appmodules.dir/C_/Users/Phincon/Codes/MyBusRN/android/app/build/generated/autolinking/src/main/jni/autolinking.cpp.o	a31c96dd28013090
+31	6037	7737740716848126	RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/RNVectorIconsSpecJSI-generated.cpp.o	61a4e2c19cffb509
+61	6903	7737740725489731	CMakeFiles/appmodules.dir/OnLoad.cpp.o	1bce19c8734ad03c
+18	5671	7737740713321931	RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/Props.cpp.o	b14bdc63099b102a
+12	4776	7737740704451330	RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/EventEmitters.cpp.o	a256b29356b16238
+72	633	7737816085864116	build.ninja	c17cb53222e4d7cb
+6903	7248	7737740728932054	C:/Users/Phincon/Codes/MyBusRN/android/app/build/intermediates/cxx/Debug/1y2y4yvl/obj/armeabi-v7a/libappmodules.so	6aa7267473e73581
+42	4428	7737740700929761	RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/States.cpp.o	5cb921f4506dcb11
+36	6352	7737740719955929	RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/RNVectorIconsSpec-generated.cpp.o	f79171dad9739485
+24	6426	7737740720912753	RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir/react/renderer/components/RNVectorIconsSpec/ComponentDescriptors.cpp.o	41055036dc72fb3f
+2	31	0	C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/cmake.verify_globs	cd638cba1c649441
+1	18	0	C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/cmake.verify_globs	cd638cba1c649441
+1	23	0	C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/cmake.verify_globs	cd638cba1c649441

@@ -1,3 +1,6 @@
 C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/appmodules.dir
 C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/edit_cache.dir
 C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/RNVectorIconsSpec_autolinked_build/CMakeFiles/react_codegen_RNVectorIconsSpec.dir
+C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/RNVectorIconsSpec_autolinked_build/CMakeFiles/edit_cache.dir
+C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/armeabi-v7a/RNVectorIconsSpec_autolinked_build/CMakeFiles/rebuild_cache.dir

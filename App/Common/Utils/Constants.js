@@ -1,3 +1,5 @@
+export const PRIMARY_COLOR = "#0D3347"
+
 export const BUS_STATUS_TRANSIT = "On The Way"
 export const BUS_STATUS_STOPPED = "Transit"
 export const BUS_STATUS_INCOMING = "Incoming"

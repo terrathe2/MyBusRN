@@ -15,11 +15,14 @@ export const getVehicle = async ({pageOffset, page, routes = [], trips = []}: Ge
         // this condition to prevent sending filter trip query when there's no filter selected.
         // So, api response will not always empty. Because if this filter is sent, 
         // the response will always return empty, regarding the trips is available or not.
+        console.log("trips ", trips);
+        
         if (trips.length > 0) {
-            filterTripsQuery = `&filter[trips]=${routes}`
+            filterTripsQuery = `&filter[trip]=${trips}`
         }
 
-        let apiUrl = BASE_URL + `/vehicles?page[offset]=${pageOffset}&page[limit]=${page}`
+        let apiUrl = BASE_URL + `/vehicles?page[offset]=${pageOffset}&page[limit]=${page}&filter[route]=${routes}${filterTripsQuery}`
+        console.log("api url ", apiUrl)
         let response = await axios.get(apiUrl)
         return response.data
     } catch (error) {

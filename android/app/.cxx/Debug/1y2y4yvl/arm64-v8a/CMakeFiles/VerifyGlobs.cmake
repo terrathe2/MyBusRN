@@ -12,6 +12,31 @@ if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   file(TOUCH_NOCREATE "C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/arm64-v8a/CMakeFiles/cmake.verify_globs")
 endif()
 
+# react_codegen_SRCS at C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/*.cpp")
+set(OLD_GLOB
+  "C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/RNVectorIconsSpec-generated.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/arm64-v8a/CMakeFiles/cmake.verify_globs")
+endif()
+
+# react_codegen_SRCS at C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/CMakeLists.txt:9 (file)
+file(GLOB NEW_GLOB LIST_DIRECTORIES true "C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/react/renderer/components/RNVectorIconsSpec/*.cpp")
+set(OLD_GLOB
+  "C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/react/renderer/components/RNVectorIconsSpec/ComponentDescriptors.cpp"
+  "C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/react/renderer/components/RNVectorIconsSpec/EventEmitters.cpp"
+  "C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/react/renderer/components/RNVectorIconsSpec/Props.cpp"
+  "C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/react/renderer/components/RNVectorIconsSpec/RNVectorIconsSpecJSI-generated.cpp"
+  "C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/react/renderer/components/RNVectorIconsSpec/ShadowNodes.cpp"
+  "C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/react/renderer/components/RNVectorIconsSpec/States.cpp"
+  )
+if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
+  message("-- GLOB mismatch!")
+  file(TOUCH_NOCREATE "C:/Users/Phincon/Codes/MyBusRN/android/app/.cxx/Debug/1y2y4yvl/arm64-v8a/CMakeFiles/cmake.verify_globs")
+endif()
+
 # override_cpp_SRC at C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:42 (file)
 # input_SRC at C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native/ReactAndroid/cmake-utils/ReactNative-application.cmake:47 (file)
 file(GLOB NEW_GLOB LIST_DIRECTORIES true "C:/Users/Phincon/Codes/MyBusRN/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/*.cpp")

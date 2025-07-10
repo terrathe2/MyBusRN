@@ -30,7 +30,7 @@ build/
 local.properties
 *.iml
 .cxx
-.keystore
+android/app/mybusrn.keystore
 
 # node.js
 #

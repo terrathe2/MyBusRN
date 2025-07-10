@@ -127,11 +127,11 @@ const VehicleDetailScreen = () => {
             >
                 <Marker
                     ref={markerRef}
-                    image={require("../../Common/Assets/ic_bus.png")}
                     coordinate={{
                         latitude: vehicleData?.latitude ?? 0,
                         longitude: vehicleData?.longitude ?? 0
                     }}
+                    style={{ width: 24, height: 24 }}
                 >
                     <Callout tooltip style={styles.calloutContainer}>
                         <View style={styles.calloutTextContainer}>

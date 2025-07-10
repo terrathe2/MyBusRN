@@ -2,7 +2,8 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Example App
 You can scan this QR Code to download apk and install it in your device.
-![QR](./App/Common/Assets/mybusrnqr.png?s=100)
+
+<img src="./App/Common/Assets/mybusrnqr.png?s=100" alt="QR" width="150" height="150">
 
 # Getting Started
 

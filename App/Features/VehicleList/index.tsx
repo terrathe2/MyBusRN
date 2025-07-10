@@ -1,35 +1,37 @@
-import React, { Children, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FlatList,
   StyleSheet,
   View,
   TouchableOpacity,
   Dimensions,
-  Text
+  Text,
+  StatusBar,
+  SafeAreaView,
+  Platform
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import {
+  Colors
+} from 'react-native/Libraries/NewAppScreen';
 import { parseISO, format } from 'date-fns';
+import { NavigationProp } from '../../Navigation/AppNavigator'
 import Icon from '../../Common/Components/Icons';
 import { getVehicle } from '../../Services/Vehicle';
-import {
-  PRIMARY_COLOR,
-  BUS_STATUS_STOPPED,
-  BUS_STATUS_TRANSIT,
-  BUS_STATUS_BREAK,
-  BUS_STATUS_INCOMING,
-  BUS_STATUS_TRANSIT_BG,
-  BUS_STATUS_STOPPED_BG,
-  BUS_STATUS_BREAK_BG,
-  BUS_STATUS_INCOMING_BG,
-} from '../../Common/Utils/Constants';
+import { PRIMARY_COLOR } from '../../Common/Utils/Constants';
+import { getVehicleStatusUI, getVehicleStatusBg } from '../../Common/Utils/VehicleStatusHelper';
 import LoadingIndicator from '../../Common/Components/LoadingIndicator';
 import FooterIndicator from '../../Common/Components/FooterIdicator';
+import VehicleStatus from '../../Common/Components/VehicleStatus';
+import Toast from '../../Common/Components/Toast';
+import { defaultToastUI, ToastUI } from '../../Common/Models/ToastUI';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
 import { getRoutes } from '../../Services/Route';
-import { 
-  defaultRouteFilters, 
-  defaultTripFilters, 
-  VehicleFiltersUI, 
-  ItemVehicleFilterUI 
+import {
+  defaultRouteFilters,
+  defaultTripFilters,
+  VehicleFiltersUI,
+  ItemVehicleFilterUI
 } from '../VehicleList/Models/VehicleFiltersUI'
 import { getTrips } from '../../Services/Trip';
 
@@ -38,6 +40,7 @@ const VehicleListScreen = () => {
   const [isVehiclesMaxed, setIsVehiclesMaxed] = useState<boolean>(false)
   const [isFetching, setIsFetching] = useState<boolean>(false)
   const [isLoadMore, setIsLoadMore] = useState<boolean>(false)
+  const [errorData, setErrorData] = useState<ToastUI>(defaultToastUI)
   const [vehicles, addVehicles] = useState<VehiclesUI[]>([])
   const [routeFilters, setRouteFilters] = useState<VehicleFiltersUI[]>(defaultRouteFilters)
   const [tripFilters, setTripFilters] = useState<VehicleFiltersUI[]>(defaultTripFilters)
@@ -71,7 +74,9 @@ const VehicleListScreen = () => {
     setTempSelectedTrips([])
     setSelectedTrips([])
     // -------------------------
-    fetchTripsApi()
+    
+    // to prevent trips fetched when no selected routes yet
+    if (selectedRoutes.length > 0) fetchTripsApi()
   }, [selectedRoutes])
 
   // fetch when selected trip filter changed
@@ -82,7 +87,7 @@ const VehicleListScreen = () => {
 
   const fetchRoutesApi = async () => {
     let response = await getRoutes()
-
+    
     if (response.data != null) {
       const uiModel: ItemVehicleFilterUI[] = response.data.map(route => (
         {
@@ -96,7 +101,7 @@ const VehicleListScreen = () => {
         return newFilters
       })
     } else {
-      // handle error
+      setErrorData({ show: true, message: "Failed to get Routes data" })
     }
   }
 
@@ -107,7 +112,7 @@ const VehicleListScreen = () => {
       const uiModel: ItemVehicleFilterUI[] = response.data.map(route => (
         {
           id: route.id,
-          name: `${route.attributes.headsign} - ${route.attributes.block_id}`
+          name: `${route.attributes.headsign} - ${route.id}`
         }
       ))
       setTripFilters(prevFilters => {
@@ -116,7 +121,7 @@ const VehicleListScreen = () => {
         return newFilters
       })
     } else {
-      // handle error
+      setErrorData({ show: true, message: "Failed to get Trips data" })
     }
   }
 
@@ -129,8 +134,8 @@ const VehicleListScreen = () => {
       const uiModel: VehiclesUI[] = response.data.map(vehicle => (
         {
           id: vehicle.id,
-          busStatus: getBusStatusUI(vehicle.attributes.current_status),
-          busStatusBg: getBusStatusBg(vehicle.attributes.current_status),
+          busStatus: getVehicleStatusUI(vehicle.attributes.current_status),
+          busStatusBg: getVehicleStatusBg(vehicle.attributes.current_status),
           busLabel: vehicle.attributes.label,
           latitude: vehicle.attributes.latitude,
           longitude: vehicle.attributes.longitude,
@@ -144,9 +149,8 @@ const VehicleListScreen = () => {
         addVehicles(uiModel)
       }
     } else {
-      // handle error
+      setErrorData({ show: true, message: "Failed to get Vehicles data" })
     }
-    console.log("response ", response?.data ?? response.errorCode)
 
     // item per fetch is limited to 10 (based on pageLimit), so when response is less than pageLimit, 
     // it's safe to assume that the vehicle list sent from API already maxed.
@@ -154,40 +158,6 @@ const VehicleListScreen = () => {
     setIsFetching(false)
     setIsLoadMore(false)
     setPagingOffset(vehicles.length - 1) // set offset to last index of vehicle list
-  }
-
-  const getBusStatusUI = (status: string): string => {
-    let busStatus = ""
-
-    switch (status) {
-      case "STOPPED_AT":
-        busStatus = BUS_STATUS_STOPPED; break
-      case "IN_TRANSIT_TO":
-        busStatus = BUS_STATUS_TRANSIT; break
-      case "INCOMING_AT":
-        busStatus = BUS_STATUS_INCOMING; break
-      default:
-        busStatus = BUS_STATUS_BREAK
-    }
-
-    return busStatus
-  }
-
-  const getBusStatusBg = (status: string) => {
-    let busStatusBg = ""
-
-    switch (status) {
-      case "STOPPED_AT":
-        busStatusBg = BUS_STATUS_STOPPED_BG; break
-      case "IN_TRANSIT_TO":
-        busStatusBg = BUS_STATUS_TRANSIT_BG; break
-      case "INCOMING_AT":
-        busStatusBg = BUS_STATUS_INCOMING_BG; break
-      default:
-        busStatusBg = BUS_STATUS_BREAK_BG
-    }
-
-    return busStatusBg
   }
 
   const refreshing = () => {
@@ -216,7 +186,7 @@ const VehicleListScreen = () => {
     // used to compare array
     const stringSelectedRoutes = JSON.stringify(selectedRoutes)
     const stringTempSelectedRoutes = JSON.stringify(tempSelectedRoutes)
-    
+
     // to prevent uneeded change
     if (stringSelectedRoutes != stringTempSelectedRoutes) {
       setSelectedRoutes(tempSelectedRoutes) // this will trigger use effect to re-fetch
@@ -226,8 +196,8 @@ const VehicleListScreen = () => {
   const onRouteFilterCancelClick = () => {
     if (selectedRoutes.length > 0) {
       setSelectedRoutes([]) // this will trigger use effect to re-fetch
-    } 
-    
+    }
+
     if (tempSelectedRoutes.length > 0) {
       setTempSelectedRoutes([])
     }
@@ -258,98 +228,114 @@ const VehicleListScreen = () => {
     }
   }
 
+  const backgroundStyle = {
+    backgroundColor: Colors.lighter,
+  };
+
   return (
-    <View style={styles.container}>
-      <LoadingIndicator isShowed={isFetching} loadingText="Fetching Vehicle Data.." />
-      {/* Route Filters */}
-      <SectionedMultiSelect
-        items={routeFilters}
-        selectedItems={tempSelectedRoutes}
-        IconRenderer={Icon}
-        uniqueKey="id"
-        subKey="children"
-        selectText="Choose routes..."
-        searchPlaceholderText="Search routes..."
-        showDropDowns={true}
-        expandDropDowns={true}
-        readOnlyHeadings={true}
-        showChips={false}
-        showCancelButton={true}
-        onSelectedItemsChange={onSelectedRoutes}
-        onConfirm={onRouteFilterConfirmClick}
-        onCancel={onRouteFilterCancelClick}
-        colors={{
-          primary: PRIMARY_COLOR,
-          success: PRIMARY_COLOR,
-          chipColor: PRIMARY_COLOR,
-          cancel: "red"
-        }}
-        styles={{ selectToggle: { padding: 14, backgroundColor: "#eaeaea" } }}
-      />
-      {/* Trip Filters */}
-      <SectionedMultiSelect
-        items={tripFilters}
-        selectedItems={tempSelectedTrips}
-        IconRenderer={Icon}
-        uniqueKey="id"
-        subKey="children"
-        selectText="Choose trips..."
-        searchPlaceholderText="Search trips..."
-        showDropDowns={true}
-        expandDropDowns={true}
-        readOnlyHeadings={true}
-        showChips={false}
-        showCancelButton={true}
-        onSelectedItemsChange={onSelectedTrips}
-        onConfirm={onTripFilterConfirmClick}
-        onCancel={onTripFilterCancelCLick}
-        colors={{
-          primary: PRIMARY_COLOR,
-          success: PRIMARY_COLOR,
-          chipColor: PRIMARY_COLOR,
-          cancel: "red"
-        }}
-        styles={{ selectToggle: { marginTop: 2, padding: 14, backgroundColor: "#eaeaea" } }}
-      />
-      <FlatList
-        data={vehicles}
-        renderItem={({ item }) => {
-          return (
-            <View style={styles.vehicleItemContainer}>
-              <VehicleCard {...item} />
-            </View>
-          )
-        }}
-        bounces={isLoadMore ? false : true}
-        keyExtractor={(_, index) => `${index}`}
-        onRefresh={refreshing}
-        refreshing={false}
-        initialNumToRender={pageLimit}
-        onEndReached={handleLoadMore}
-        onEndReachedThreshold={0.5}
-        ListFooterComponent={() => FooterIndicator(isLoadMore)}
-      />
-    </View>
+    <SafeAreaView style={[backgroundStyle, styles.mainContainer]}>
+      <View style={styles.container}>
+        <StatusBar
+          barStyle={'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+        <LoadingIndicator isShowed={isFetching} loadingText="Fetching Vehicle Data.." />
+        {/* Route Filters */}
+        <SectionedMultiSelect
+          items={routeFilters}
+          selectedItems={tempSelectedRoutes}
+          IconRenderer={Icon}
+          uniqueKey="id"
+          subKey="children"
+          selectText="Choose routes..."
+          searchPlaceholderText="Search routes..."
+          showDropDowns={true}
+          expandDropDowns={true}
+          readOnlyHeadings={true}
+          showChips={false}
+          showCancelButton={true}
+          onSelectedItemsChange={onSelectedRoutes}
+          onConfirm={onRouteFilterConfirmClick}
+          onCancel={onRouteFilterCancelClick}
+          colors={{
+            primary: PRIMARY_COLOR,
+            success: PRIMARY_COLOR,
+            chipColor: PRIMARY_COLOR,
+            cancel: "red"
+          }}
+          styles={{ selectToggle: { padding: 14, backgroundColor: "#eaeaea" } }}
+        />
+        {/* Trip Filters */}
+        <SectionedMultiSelect
+          items={tripFilters}
+          selectedItems={tempSelectedTrips}
+          IconRenderer={Icon}
+          uniqueKey="id"
+          subKey="children"
+          selectText="Choose trips..."
+          searchPlaceholderText="Search trips..."
+          showDropDowns={true}
+          expandDropDowns={true}
+          readOnlyHeadings={true}
+          showChips={false}
+          showCancelButton={true}
+          onSelectedItemsChange={onSelectedTrips}
+          onConfirm={onTripFilterConfirmClick}
+          onCancel={onTripFilterCancelCLick}
+          colors={{
+            primary: PRIMARY_COLOR,
+            success: PRIMARY_COLOR,
+            chipColor: PRIMARY_COLOR,
+            cancel: "red"
+          }}
+          styles={{ selectToggle: { marginTop: 2, padding: 14, backgroundColor: "#eaeaea" } }}
+        />
+        <FlatList
+          data={vehicles}
+          renderItem={({ item }) => {
+            return (
+              <View style={styles.vehicleItemContainer}>
+                <VehicleCard {...item} />
+              </View>
+            )
+          }}
+          bounces={isLoadMore ? false : true}
+          keyExtractor={(_, index) => `${index}`}
+          onRefresh={refreshing}
+          refreshing={false}
+          initialNumToRender={pageLimit}
+          onEndReached={handleLoadMore}
+          onEndReachedThreshold={0.5}
+          ListFooterComponent={() => FooterIndicator(isLoadMore)}
+        />
+        <Toast show={errorData.show} text={errorData.message} onHide={() => setErrorData(defaultToastUI)} />
+      </View>
+    </SafeAreaView>
   )
 }
 
 const VehicleCard = (vehicle: VehiclesUI) => {
+  const navController = useNavigation<NavigationProp>();
+
   return (
-    <TouchableOpacity onPress={() => { }}>
-      <View style={styles.vehicleCardContainer}>
-        <Text style={styles.vehicleName}>{`Bus ${vehicle.busLabel.toUpperCase()}`}</Text>
-        <View style={[styles.vehicleStatusContainer, { backgroundColor: vehicle.busStatusBg }]}>
-          <Text style={styles.vehicleStatus}>{vehicle.busStatus}</Text>
-        </View>
-        <Text style={styles.vehicleLoc}>{`Lat: ${vehicle.latitude} Lng: ${vehicle.longitude}`}</Text>
-        <Text style={styles.lastUpdated}>{`Last Update: ${vehicle.lastUpdate}`}</Text>
-      </View>
+    <TouchableOpacity
+      onPress={() => navController.navigate("VehicleDetail", { vehicleId: vehicle.id })}
+      style={styles.vehicleCardContainer}
+    >
+      <Text style={styles.vehicleName}>{`Vehicle ${vehicle.busLabel.toUpperCase()}`}</Text>
+      <VehicleStatus statusText={vehicle.busStatus} statusBg={vehicle.busStatusBg} />
+      <Text style={styles.vehicleLoc}>{`Lat: ${vehicle.latitude} Lng: ${vehicle.longitude}`}</Text>
+      <Text style={styles.lastUpdated}>{`Last Update: ${vehicle.lastUpdate}`}</Text>
     </TouchableOpacity>
   )
 }
 
-const window = Dimensions.get("window")
+const { width } = Dimensions.get("window")
 const styles = StyleSheet.create({
+  mainContainer: {
+    flex: 1,
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
+  },
   container: {
     flex: 1,
   },
@@ -358,10 +344,11 @@ const styles = StyleSheet.create({
     margin: 10
   },
   vehicleCardContainer: {
-    width: window.width - 20,
+    width: width - 20,
     padding: 10,
     borderRadius: 10,
     backgroundColor: PRIMARY_COLOR,
+    elevation: 5,
     shadowColor: "black",
     shadowOpacity: 0.5,
     shadowOffset: {
@@ -372,18 +359,6 @@ const styles = StyleSheet.create({
   vehicleName: {
     fontWeight: "bold",
     fontSize: 16,
-    letterSpacing: 1,
-    color: "white",
-  },
-  vehicleStatusContainer: {
-    alignSelf: "flex-start",
-    borderRadius: 10,
-    marginTop: 8,
-    padding: 10
-  },
-  vehicleStatus: {
-    fontWeight: "600",
-    fontSize: 14,
     letterSpacing: 1,
     color: "white",
   },

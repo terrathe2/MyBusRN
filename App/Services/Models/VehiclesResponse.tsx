@@ -6,5 +6,17 @@ interface VehiclesResponse {
         latitude: number;
         longitude: number;
         updated_at: string;
-    }
+    },
+    relationships: {
+        route: {
+            data: {
+                id: string
+            }
+        },
+        trip: {
+            data: {
+                id: string
+            }
+        }
+    },
 }

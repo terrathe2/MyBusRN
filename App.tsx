@@ -1,55 +1,10 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Platform,
-  useColorScheme,
-  Dimensions
-} from 'react-native';
-import {
-  Colors
-} from 'react-native/Libraries/NewAppScreen';
-import VehicleListScreen from './App/Features/VehicleList';
-const { width, height } = Dimensions.get('window');
+import { Navigation } from './App/Navigation/AppNavigator';
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={[backgroundStyle, styles.mainContainer]}>
-      <StatusBar
-        barStyle={'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <VehicleListScreen />
-    </SafeAreaView>
+    <Navigation />
   );
 }
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: 18,
-    fontWeight: '400',
-    color: "black",
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;

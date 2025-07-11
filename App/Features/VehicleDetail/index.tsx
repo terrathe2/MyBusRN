@@ -84,9 +84,6 @@ const VehicleDetailScreen = () => {
 
         response
             .then(([route, trip]) => {
-                console.log("error ", route);
-                console.log("error 2 ", trip);
-
                 if (route.errorCode != null && trip.errorCode != null) {
                     setErrorData({ show: true, message: "Failed to get Additional data" })
                 } else if (route.errorCode != null) {
